@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+const messages = [
+  "Learn React *",
+  "Apply For the Job",
+  "Invest the new income",
+];
+
+export default function App() {
+  // State to manage the step
+  const [step, setStep] = useState(1);
+  const [isClose, setIsClose] = useState(false);
+
+  // Handle Previous Button
+  function handlePrevious() {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  }
+
+  // Handle Next Button
+  function handleNext() {
+    if (step < 3) {
+      setStep(step + 1);
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button className="close" onClick={() => setIsClose(!isClose)}>
+        &times;
+      </button>
+      {isClose && ( // Corrected conditional rendering
+        <div className="steps-container">
+          {/* Step Numbers */}
+          <div className="number-container">
+            <div className={`step-number ${step >= 1 ? "active" : ""}`}>1</div>
+            <div className={`step-number ${step >= 2 ? "active" : ""}`}>2</div>
+            <div className={`step-number ${step >= 3 ? "active" : ""}`}>3</div>
+          </div>
+
+          {/* Step Message */}
+          <p className="step-message">  
+            Step {step}: {messages[step - 1]}
+          </p>
+
+          {/* Buttons */}
+          <div className="button-container">
+            <button
+              className="button"
+              disabled={step === 1}
+              onClick={handlePrevious}
+            >
+              Previous
+            </button>
+            <button
+              className="button"
+              disabled={step === 3}
+              onClick={handleNext}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-export default App;
