@@ -5,7 +5,6 @@ const messages = [
   "Apply For the Job",
   "Invest the new income",
 ];
-
 export default function App() {
   // State to manage the step
   const [step, setStep] = useState(1);
